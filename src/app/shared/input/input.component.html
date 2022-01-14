@@ -1,0 +1,9 @@
+<div class="field">
+  <label>{{label}}</label>
+  <input [formControl]="control" [type]="inputType">
+  <div *ngIf="showErrors" class="ui pointing red basic label">
+    <p>
+      {{inputControlError.message}}
+    </p>
+  </div>
+</div>
