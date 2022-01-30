@@ -1,0 +1,26 @@
+.item a {
+    color: #000;
+}
+
+a.active {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+a.active:before {
+    content: '>';
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.content {
+    width: 90%
+}
+
+.trim {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsisl;
+    width: 100%;
+}
