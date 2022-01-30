@@ -10,7 +10,7 @@ export class InputComponent {
   @Input() label!: string;
   @Input() inputType: string = 'text'
   @Input() control!: FormControl;
-
+  @Input() controlType: 'input' | 'textarea' = 'input'
   get showErrors() {
     const {dirty, touched, errors} = this.control;
     return dirty && touched && errors
@@ -32,6 +32,11 @@ export class InputComponent {
     const minLengthError = controlErrors['minlength'];
     if (minLengthError) {
       error.message = InputComponent.minLengthErrorMessage(minLengthError)
+    }
+
+    const emailError = controlErrors['email'];
+    if (emailError) {
+      error.message = 'Enter a valid email'
     }
 
     const maxLengthError = controlErrors['maxlength'];

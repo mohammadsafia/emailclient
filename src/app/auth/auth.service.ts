@@ -7,7 +7,9 @@ import {BehaviorSubject, tap} from "rxjs";
     providedIn: 'root'
 })
 export class AuthService {
-    signedin$ = new BehaviorSubject<any>(null)
+    signedin$ = new BehaviorSubject<any>(null);
+    username = '';
+
     private readonly apiEndPoint = 'https://api.angular-email.com/auth'
 
     constructor(private http: HttpClient) {
@@ -20,15 +22,17 @@ export class AuthService {
     }
 
     signup(credentials: SignupCredentials) {
-        return this.http.post<SignupResponse>(`${this.apiEndPoint}/signup`, credentials).pipe(tap(() => {
+        return this.http.post<SignupResponse>(`${this.apiEndPoint}/signup`, credentials).pipe(tap(({username}) => {
             this.signedin$.next(true);
+            this.username = username;
         }))
     }
 
     checkAuth() {
         return this.http.get<SignedInResponse>(`${this.apiEndPoint}/signedin`).pipe(
-            tap(({authenticated}) => {
+            tap(({authenticated, username}) => {
                 this.signedin$.next(authenticated);
+                this.username = username;
             })
         )
     }
@@ -42,9 +46,10 @@ export class AuthService {
     }
 
     signin(credentials: SigninCredentials) {
-        return this.http.post(`${this.apiEndPoint}/signin`, credentials).pipe(
-            tap(()=> {
+        return this.http.post<SignedInResponse>(`${this.apiEndPoint}/signin`, credentials).pipe(
+            tap(({username}) => {
                 this.signedin$.next(true);
+                this.username = username;
             })
         )
     }

@@ -16,7 +16,8 @@ import { ModalComponent } from './modal/modal.component';
     ReactiveFormsModule
   ],
   exports: [
-    InputComponent
+    InputComponent,
+    ModalComponent
   ]
 })
 export class SharedModule { }

@@ -20,6 +20,10 @@ export class EmailService {
   getEmail(emailId: string) {
     return this.http.get<Email>(`${this.apiEndPoint}/emails/${emailId}`)
   }
+
+  sendEmail(email: Email) {
+    return this.http.post(`${this.apiEndPoint}/emails`, email);
+  }
 }
 
 export interface EmailSummary {
